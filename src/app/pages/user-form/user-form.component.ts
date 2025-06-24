@@ -25,8 +25,8 @@ export class UserFormComponent {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
-      website: ['']
+      phone: ['', Validators.required],
+      website: ['', Validators.required]
     });
 
     this.route.paramMap.subscribe(params => {

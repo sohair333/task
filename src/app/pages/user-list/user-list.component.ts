@@ -24,8 +24,6 @@ export class UserListComponent implements OnInit{
     const localUsers = this.userService.getLocalUsers();
     this.users = [...data, ...localUsers];
     this.filteredUsers = [...this.users]; 
-    console.log(this.filteredUsers,"filter");
-    
       this.updatePagination();
     });
   }

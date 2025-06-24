@@ -1,1 +1,41 @@
-<p>user-details works!</p>
+<div class="user-details-wrapper" *ngIf="user; else notFound">
+  <div class="details-card">
+    <h2>User Profile</h2>
+
+    <div class="detail-row">
+      <label>Name:</label>
+      <span>{{ user.name }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Email:</label>
+      <span>{{ user.email }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Phone:</label>
+      <span>{{ user.phone || 'N/A' }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Website:</label>
+      <span>
+        <a [href]="'https://' + user.website" target="_blank">{{ user.website }}</a>
+      </span>
+    </div>
+
+    <div class="detail-row">
+      <label>Company:</label>
+      <span>{{ user.company.name || 'N/A' }}</span>
+    </div>
+
+    <button class="back-btn" (click)="goBack()">← Back to List</button>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="user-details-wrapper">
+    <p class="error-msg">User not found.</p>
+    <button class="back-btn" (click)="goBack()">← Back to List</button>
+  </div>
+</ng-template>

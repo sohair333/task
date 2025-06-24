@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
-import { LimitWordsPipe } from './shared/pipes/limit-words.pipe';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -16,9 +15,6 @@ import { MessageService } from 'primeng/api';
   declarations: [
     AppComponent,
  
-    LimitWordsPipe,
-   
-    
   ],
   imports: [
     BrowserAnimationsModule,

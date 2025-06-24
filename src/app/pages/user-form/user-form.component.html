@@ -1,25 +1,29 @@
 <div class="user-form-container">
-    <button class="back-btn" (click)="goBack()">&larr; Back to List</button>
+  <button class="back-btn" (click)="goBack()">&larr; Back to List</button>
   <h2>{{ isEdit ? 'Edit User' : 'Add User' }}</h2>
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <label>Name</label>
     <input formControlName="name" type="text" />
-    <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+    <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="text-danger">
       Name is required.
     </div>
 
     <label>Email</label>
     <input formControlName="email" type="email" />
-    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">
       Valid email is required.
     </div>
 
     <label>Phone</label>
     <input formControlName="phone" type="text" />
-
+    <div *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched" class="text-danger">
+      phone is required.
+    </div>
     <label>Website</label>
     <input formControlName="website" type="text" />
-
+    <div *ngIf="userForm.get('website')?.invalid && userForm.get('website')?.touched" class="text-danger">
+      website is required.
+    </div>
     <button type="submit" [disabled]="userForm.invalid">{{ isEdit ? 'Update' : 'Add' }} User</button>
   </form>
 </div>

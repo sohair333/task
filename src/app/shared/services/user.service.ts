@@ -9,21 +9,19 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/users';
-  private addedUsers: User[] = [];
-
   constructor(private http: HttpClient) { }
 
-addToLocalUsers(user: User): void {
-  const stored = localStorage.getItem('localUsers');
-  const localUsers = stored ? JSON.parse(stored) : [];
-  localUsers.push(user);
-  localStorage.setItem('localUsers', JSON.stringify(localUsers));
-}
+  addToLocalUsers(user: User): void {
+    const stored = localStorage.getItem('localUsers');
+    const localUsers = stored ? JSON.parse(stored) : [];
+    localUsers.push(user);
+    localStorage.setItem('localUsers', JSON.stringify(localUsers));
+  }
 
 
-getLocalUsers(): User[] {
-  return JSON.parse(localStorage.getItem('localUsers') || '[]');
-}
+  getLocalUsers(): User[] {
+    return JSON.parse(localStorage.getItem('localUsers') || '[]');
+  }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
