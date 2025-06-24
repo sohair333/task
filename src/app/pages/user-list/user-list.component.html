@@ -1,0 +1,49 @@
+<div class="user-list-container">
+  <h2>User List</h2>
+  <a routerLink="/edit" class="btn add-btn">+ Add User</a>
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="onSearch()"
+    class="search-input"
+    placeholder="Search by name or email"
+  />
+
+  <div class="table-wrapper">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Company</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.company?.name }}</td>
+          <td>
+            <a [routerLink]="['/users/edit', user.id]" class="btn edit-btn">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    
+    <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button 
+        (click)="goToPage(i + 1)"
+        [class.active]="currentPage === (i + 1)">
+        {{ i + 1 }}
+      </button>
+    </ng-container>
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>
