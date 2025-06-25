@@ -52,7 +52,8 @@ export class UserFormComponent {
     };
 
     if (this.isEdit) {
-      this.userService.updateUser(user).subscribe(() => {
+    this.userService.updateUser(user).subscribe(() => {
+       this.userService.updateLocalUser(user);
         this.router.navigate(['/']);
       });
     } else {

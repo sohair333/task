@@ -26,7 +26,7 @@
         <tr *ngFor="let user of paginatedUsers">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.company.name }}</td>
+          <td>{{ user?.company?.name }}</td>
           <td>
             <a [routerLink]="['/users/edit', user.id]" class="btn edit-btn">Edit</a>
             <a [routerLink]="['/users', user.id]" class="btn view-btn">View</a>

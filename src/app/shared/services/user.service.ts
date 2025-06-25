@@ -1,20 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../intrfaces/User';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
   constructor(private http: HttpClient) { }
 
   addToLocalUsers(user: User): void {
-    const stored = localStorage.getItem('localUsers');
-    const localUsers = stored ? JSON.parse(stored) : [];
-    localUsers.push(user);
+    const users = this.getLocalUsers();
+    users.push(user);
+    localStorage.setItem('localUsers', JSON.stringify(users));
+  }
+
+  updateLocalUser(updatedUser: User): void {
+    const localUsers = this.getLocalUsers();
+    const index = localUsers.findIndex(u => u.id === updatedUser.id);
+
+    if (index !== -1) {
+      localUsers[index] = updatedUser;
+    } else {
+      localUsers.push(updatedUser);
+    }
+
     localStorage.setItem('localUsers', JSON.stringify(localUsers));
   }
 
@@ -24,18 +37,26 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    return this.http.get<User[]>(this.apiUrl).pipe(
+      map(apiUsers => [...apiUsers, ...this.getLocalUsers()])
+    );
   }
+
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`https://jsonplaceholder.typicode.com/users/${id}`);
+    const localUser = this.getLocalUsers().find(u => u.id === id);
+    if (localUser) return of(localUser);
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(`https://jsonplaceholder.typicode.com/users`, user);
+    return this.http.post<User>(this.apiUrl, user).pipe(
+      tap(() => this.addToLocalUsers(user))
+    );
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`https://jsonplaceholder.typicode.com/users/${user.id}`, user);
+    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user).pipe(
+      tap(() => this.updateLocalUser(user))
+    );
   }
-
 }
