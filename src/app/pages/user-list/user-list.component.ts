@@ -24,7 +24,6 @@ export class UserListComponent implements OnInit{
    ngOnInit(): void {
     this.loadUsers();
 
-    // Reload list on route navigation (for edit or add)
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -36,13 +35,11 @@ export class UserListComponent implements OnInit{
   this.userService.getUsers().subscribe(apiUsers => {
     const localUsers = this.userService.getLocalUsers();
 
-    // Merge local users with API users: if same ID exists, override
     const merged = apiUsers.map(apiUser => {
       const localOverride = localUsers.find(lu => lu.id === apiUser.id);
       return localOverride ? localOverride : apiUser;
     });
 
-    // Add new users (not present in API)
     const newUsers = localUsers.filter(lu => !apiUsers.find(au => au.id === lu.id));
 
     this.users = [...merged, ...newUsers];
