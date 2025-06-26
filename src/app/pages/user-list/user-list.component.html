@@ -1,12 +1,7 @@
 <div class="user-list-container">
-  <div class="d-flex">
-    <div>
-      <h2>User List</h2>
-
-    </div>
-    <div>
-      <a routerLink="/users/new" class="btn add-btn">+ Add User</a>
-    </div>
+  <div class="header-row">
+    <h2>User List</h2>
+    <a routerLink="/users/new" class="btn add-btn">+ Add User</a>
   </div>
 
   <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" class="search-input"

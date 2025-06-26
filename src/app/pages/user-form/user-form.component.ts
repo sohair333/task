@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { User } from 'src/app/intrfaces/User';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -18,7 +19,8 @@ export class UserFormComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class UserFormComponent {
     };
 
     if (this.isEdit) {
-    this.userService.updateUser(user).subscribe(() => {
-       this.userService.updateLocalUser(user);
+      this.userService.updateUser(user).subscribe(() => {
+        this.userService.updateLocalUser(user);
         this.router.navigate(['/']);
       });
     } else {

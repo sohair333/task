@@ -7,6 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -20,7 +24,12 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     PagesRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    ToastModule
+  ],
+  providers: [MessageService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
+
 })
 export class PagesModule { }
